@@ -1,6 +1,7 @@
 package ro.ubb.licenta.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,14 +11,19 @@ public class Problem {
     private Long id;
 
     private String title;
+    @Lob
     private String description;
+    @Lob
     private String exampleInput;
+    @Lob
     private String exampleOutput;
     @ManyToOne
     private User author;
 
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
     private List<Step> steps;
+
+    public Problem(){}
 
     public Problem(String title, String description, String exampleInput, String exampleOutput, User author) {
         this.title = title;
@@ -25,6 +31,7 @@ public class Problem {
         this.exampleInput = exampleInput;
         this.exampleOutput = exampleOutput;
         this.author = author;
+        this.steps = new ArrayList<>();
     }
 
     public Long getId() {
@@ -73,5 +80,17 @@ public class Problem {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    public List<Step> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<Step> steps) {
+        this.steps = steps;
+    }
+
+    public void addStep(Step step){
+        this.steps.add(step);
     }
 }
