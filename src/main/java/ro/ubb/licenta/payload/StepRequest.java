@@ -3,7 +3,10 @@ package ro.ubb.licenta.payload;
 import java.util.List;
 
 public class StepRequest {
+    private Long id;
+
     private List<NodeRequest> nodes;
+    private List<ArrayRequest> arrays;
 
     public List<NodeRequest> getNodes() {
         return nodes;
@@ -13,14 +16,27 @@ public class StepRequest {
         this.nodes = nodes;
     }
 
+    public List<ArrayRequest> getArrays() {
+        return arrays;
+    }
+
+    public void setArrays(List<ArrayRequest> arrays) {
+        this.arrays = arrays;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        String ret =  "StepRequest{" +
-                "nodes = [";
-        for(NodeRequest el: nodes){
-            ret = ret.concat(el.toString());
-        }
-        ret = ret.concat("]}");
-        return ret;
+        return "StepRequest{" +
+                "id=" + id +
+                ", nodes=" + nodes +
+                '}';
     }
 }

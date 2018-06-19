@@ -2,17 +2,14 @@ package ro.ubb.licenta.payload;
 
 import java.util.List;
 
-public class NodeRequest {
+public class ArrayRequest {
     private Long id;
 
-    private Integer internalId;
     private Integer positionX;
     private Integer positionY;
     private Integer size;
-    private String color;
-    private String value;
-
-    private List<EdgeRequest> edges;
+    private Integer internalId;
+    private List<ArrayElementRequest> arrayElementRequests;
 
     public Long getId() {
         return id;
@@ -20,14 +17,6 @@ public class NodeRequest {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getInternalId() {
-        return internalId;
-    }
-
-    public void setInternalId(Integer internalId) {
-        this.internalId = internalId;
     }
 
     public Integer getPositionX() {
@@ -54,27 +43,19 @@ public class NodeRequest {
         this.size = size;
     }
 
-    public String getColor() {
-        return color;
+    public Integer getInternalId() {
+        return internalId;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setInternalId(Integer internalId) {
+        this.internalId = internalId;
     }
 
-    public String getValue() {
-        return value;
+    public List<ArrayElementRequest> getArrayElementRequests() {
+        return arrayElementRequests;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public List<EdgeRequest> getEdges() {
-        return edges;
-    }
-
-    public void setEdges(List<EdgeRequest> edges) {
-        this.edges = edges;
+    public void setArrayElementRequests(List<ArrayElementRequest> arrayElementRequests) {
+        this.arrayElementRequests = arrayElementRequests;
     }
 }

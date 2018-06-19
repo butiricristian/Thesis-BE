@@ -1,6 +1,8 @@
 package ro.ubb.licenta.payload;
 
 public class EdgeRequest {
+    private Long id;
+
     private Integer internalId;
     private Integer left;
     private Integer top;
@@ -10,6 +12,14 @@ public class EdgeRequest {
     private String value;
     private Integer indexOfNode;
     private String isFirst;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Integer getInternalId() {
         return internalId;

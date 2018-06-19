@@ -13,11 +13,15 @@ public class Step {
     @OneToMany(mappedBy = "step", cascade = CascadeType.ALL)
     private List<Node> nodes;
 
+    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL)
+    private List<ArrayComponent> arrays;
+
     @ManyToOne
     private Problem problem;
 
     public Step() {
         this.nodes = new ArrayList<>();
+        this.arrays = new ArrayList<>();
     }
 
     public Long getId() {
@@ -34,6 +38,14 @@ public class Step {
 
     public void setNodes(List<Node> nodes) {
         this.nodes = nodes;
+    }
+
+    public List<ArrayComponent> getArrays() {
+        return arrays;
+    }
+
+    public void setArrays(List<ArrayComponent> arrays) {
+        this.arrays = arrays;
     }
 
     public Problem getProblem() {
