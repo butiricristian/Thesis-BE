@@ -7,6 +7,7 @@ import ro.ubb.licenta.payload.*;
 import ro.ubb.licenta.repository.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -112,7 +113,9 @@ public class ProblemController {
             }
             newProblem.getSteps().add(newStep);
         }
-        return ResponseEntity.ok("Great job");
+        HashMap<String, String> response = new HashMap<>();
+        response.put("ok", "Great job");
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/problems")
@@ -198,5 +201,15 @@ public class ProblemController {
             pr.getSteps().add(sr);
         }
         return ResponseEntity.ok(pr);
+    }
+
+    @DeleteMapping("/problems/{id}")
+    public ResponseEntity deleteProblem(
+            @PathVariable("id") Long id
+    ){
+        this.problemRepository.deleteById(id);
+        HashMap<String, String> res = new HashMap<>();
+        res.put("response", "All good");
+        return ResponseEntity.ok(res);
     }
 }

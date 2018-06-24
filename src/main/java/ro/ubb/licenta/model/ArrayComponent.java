@@ -18,7 +18,7 @@ public class ArrayComponent {
     @ManyToOne
     private Step step;
 
-    @OneToMany(mappedBy = "array")
+    @OneToMany(mappedBy = "array", cascade = CascadeType.ALL)
     private List<ArrayElement> arrayElements;
 
     public ArrayComponent(){}
