@@ -1,5 +1,8 @@
 package ro.ubb.licenta.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +24,7 @@ public class Problem {
     private User author;
 
     @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Step> steps;
 
     public Problem(){}

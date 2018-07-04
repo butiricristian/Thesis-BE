@@ -1,6 +1,8 @@
 package ro.ubb.licenta.model;
 
 import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class Node {
     private String value;
 
     @OneToMany(mappedBy = "node", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Edge> edges;
 
     @ManyToOne

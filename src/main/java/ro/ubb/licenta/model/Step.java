@@ -10,10 +10,10 @@ public class Step {
     @GeneratedValue
     private Long id;
 
-    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL, targetEntity = Node.class)
     private List<Node> nodes;
 
-    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "step", cascade = CascadeType.ALL, targetEntity = ArrayComponent.class)
     private List<ArrayComponent> arrays;
 
     @ManyToOne

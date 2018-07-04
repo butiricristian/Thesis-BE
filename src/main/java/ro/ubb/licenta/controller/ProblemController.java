@@ -1,6 +1,7 @@
 package ro.ubb.licenta.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import ro.ubb.licenta.model.*;
 import ro.ubb.licenta.payload.*;
@@ -33,6 +34,7 @@ public class ProblemController {
     }
 
     @PostMapping("/uploadProblem")
+    @Transactional
     public ResponseEntity<?> addProblem(@RequestBody ProblemRequest problemRequest) {
         User author = userRepository.findByEmail(problemRequest.getAuthorEmail()).get();
         Problem newProblem = new Problem(
@@ -43,6 +45,40 @@ public class ProblemController {
                 author
         );
         newProblem.setId(problemRequest.getId());
+        if(problemRequest.getId() != null){
+            List<Step> stepsToRemove = new ArrayList<>();
+            Problem existingProblem = problemRepository.findById(problemRequest.getId()).get();
+            for(Step s : existingProblem.getSteps()){
+                boolean found = false;
+                for(StepRequest sr : problemRequest.getSteps()){
+                    if(s.getId().equals(sr.getId())){
+                        found = true;
+                    }
+                }
+                if(!found){
+                    stepsToRemove.add(s);
+                }
+            }
+            for(Step s: stepsToRemove){
+                for(Node n: s.getNodes()){
+                    for(Edge e: n.getEdges()){
+                        edgeRepository.delete(e);
+                    }
+                    n.getEdges().removeAll(n.getEdges());
+                    nodeRepository.delete(n);
+                }
+                for(ArrayComponent ac: s.getArrays()){
+                    for(ArrayElement ae: ac.getArrayElements()){
+                        arrayElementRepository.delete(ae);
+                    }
+                    ac.getArrayElements().removeAll(ac.getArrayElements());
+                    arrayRepository.delete(ac);
+                }
+                s.getNodes().removeAll(s.getNodes());
+                s.getArrays().removeAll(s.getArrays());
+                stepRepository.delete(s);
+            }
+        }
         problemRepository.save(newProblem);
         for (StepRequest sr : problemRequest.getSteps()) {
             Step newStep = new Step();
